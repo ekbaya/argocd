@@ -20,7 +20,7 @@ kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.pas
 
 #### Links
 
-- Config repo: [https://gitlab.com/ekbaya/argocd](https://gitlab.com/ekbaya/argocd)
+- Config repo: [https://github.com/ekbaya/argocd](https://github.com/ekbaya/argocd)
 
 - Docker repo: [https://hub.docker.com/repository/docker/ekbaya/campaigner](https://hub.docker.com/repository/docker/ekbaya/campaigner)
 
