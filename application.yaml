@@ -1,0 +1,36 @@
+# Define an Argo CD Application resource using the argoproj.io API
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  # Name of the Application resource
+  name: myapp-argo-application
+  # Namespace where the Application resource will be created (should be argocd)
+  namespace: argocd
+spec:
+  # The project this application belongs to (default is the default project in Argo CD)
+  project: default
+
+  source:
+    # GitLab repository URL containing the Kubernetes manifests
+    repoURL: https://gitlab.com/ekbaya/argocd
+    # Git branch/tag/commit to use (HEAD refers to the latest commit)
+    targetRevision: HEAD
+    # Path within the repository containing the Kubernetes manifests
+    path: dev
+
+  destination: 
+    # Target Kubernetes cluster URL (in this case, the same cluster where Argo CD is installed)
+    server: https://kubernetes.default.svc
+    # Target namespace where the application resources will be deployed
+    namespace: myapp
+
+  syncPolicy:
+    syncOptions:
+    # Automatically create the destination namespace if it doesn't exist
+    - CreateNamespace=true
+
+    automated:
+      # Automatically sync when out of sync (revert manual changes in the cluster)
+      selfHeal: true
+      # Automatically delete resources that are no longer defined in Git
+      prune: true
